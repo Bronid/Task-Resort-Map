@@ -38,8 +38,7 @@ server/          Express API (TypeScript)
   src/
     index.ts           Entry point, CLI args, static serving
     types.ts           Shared type definitions
-    routes/map.ts      GET /api/map
-    routes/cabanas.ts  GET/POST /api/cabanas
+    routes/api.ts      GET/POST /api/cabanas
     services/
       mapParser.ts     ASCII map parsing + path tile logic
       booking.ts       Booking validation and state
@@ -52,8 +51,8 @@ client/          React SPA (Vite + TypeScript)
       MapTile.tsx       Individual tile with asset mapping
       BookingModal.tsx  Booking form / unavailable message
 assets/          PNG tile images
-map.ascii        Default resort map
-bookings.json    Default guest list
+maps/            Maps folder
+bookings/        Bookings folder
 run.sh           Single entrypoint script
 ```
 
@@ -91,4 +90,4 @@ Tests use **Vitest** with **supertest** for API integration tests and **React Te
 
 ## Design Decisions
 
-I chose Express + React as a straightforward TypeScript stack - minimal setup, widely understood, and sufficient for the scope. The map parser runs once at startup and builds an in-memory grid; the path tile algorithm checks 4 neighbors to pick the right sprite and rotation, which keeps things simple without needing a tilemap library. If a chalet (`c`) is directly adjacent to a path tile, that path tile's shape accounts for the connection (e.g. a straight becomes a split) — chalets further away don't get artificial branches. Bookings live in a `Map<string, CabanaInfo>` on the server - no persistence needed per the requirements. Guest name validation is case-insensitive. The frontend is a single-page app that Vite builds into static files, served by Express in production. The map grid is responsive — tile size adjusts to fit the viewport on mobile. For dev, Vite proxies API calls to the backend. I kept the booking flow minimal (one modal, two fields) to stay close to the spec without over-engineering.
+I chose Express + React as a straightforward TypeScript stack - minimal setup, widely understood, and sufficient for the scope. The map parser runs once at startup and builds an in-memory grid; the path tile algorithm checks 4 neighbors to pick the right sprite and rotation, which keeps things simple without needing a tilemap library. If a chalet (`c`) is directly adjacent to a path tile, that path tile's shape accounts for the connection (e.g. a straight becomes a split) - chalets further away don't get artificial branches. Bookings live in a `Map<string, CabanaInfo>` on the server - no persistence needed per the requirements. Guest name validation is case-insensitive. The frontend is a single-page app that Vite builds into static files, served by Express in production. The map grid is responsive - tile size adjusts to fit the viewport on mobile. For dev, Vite proxies API calls to the backend. I kept the booking flow minimal (one modal, two fields) to stay close to the spec without over-engineering.
