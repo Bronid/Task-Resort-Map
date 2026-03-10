@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/api.ts","./src/main.tsx","./src/test-setup.ts","./src/types.ts","./src/components/bookingmodal.tsx","./src/components/maptile.tsx","./src/components/resortmap.tsx","./src/components/__tests__/bookingmodal.test.tsx","./src/components/__tests__/resortmap.test.tsx"],"version":"5.9.3"}
